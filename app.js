@@ -4,6 +4,8 @@ const path = require('path');
 const app = express();
 const PORT = 5000;
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('Bienvenidos a la Api de E-Mercado');
 });
@@ -48,6 +50,12 @@ app.get('/user_cart/:id', (req, res) => {
   res.sendFile(
     path.join(__dirname, 'emercado-api-main', 'user_cart', `${id}.json`)
   );
+});
+
+app.post('/buy', (req, res) => {
+  const body = req.body;
+  console.log(body);
+  res.send(body);
 });
 
 app.listen(PORT, () => {
