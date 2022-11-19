@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = 5000;
@@ -53,8 +54,16 @@ app.get('/user_cart/:id', (req, res) => {
 });
 
 app.post('/buy', (req, res) => {
-  const body = req.body;
-  console.log(body);
+  const body = JSON.stringify(req.body);
+
+  fs.writeFile(
+    path.join(__dirname, 'emercado-api-main', 'orders', `order.json`),
+    body,
+    (err) => {
+      console.log(err);
+    }
+  );
+
   res.send(body);
 });
 
